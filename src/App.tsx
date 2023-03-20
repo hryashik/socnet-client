@@ -1,8 +1,19 @@
+import { useSelector } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import { Login } from './pages/auth/login-page';
+import { MainPage } from './pages/main/main-page';
+import { UseAppDispatch } from './store/hooks';
+import { RootState } from './store/store';
+
 export const App: React.FC = () => {
-  
+  const dispatch = UseAppDispatch();
+
   return (
-    <h1>
-      hello world!
-    </h1>
-  )
-}
+    <>
+      <Routes>
+        <Route path='/' element={<MainPage />} />
+        <Route path='/auth' element={<Login />} />
+      </Routes>
+    </>
+  );
+};
