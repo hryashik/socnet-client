@@ -25,3 +25,14 @@
     margin-bottom: 20px;
   }
 }
+.error {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  color: rgb(190, 2, 2);
+  font-size: 15px;
+  font-family: 'Roboto', sans-serif;
+  p {
+    margin: 2px 0 0 5px;
+  }
+}

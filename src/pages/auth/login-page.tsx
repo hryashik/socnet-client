@@ -1,28 +1,36 @@
-import { Button, Input, Typography } from '@mui/material';
-import { KeyboardEvent, useState } from 'react';
+import { Button, Icon, Input, Typography } from '@mui/material';
+import { KeyboardEvent, useEffect, useState } from 'react';
 import styles from './login-page.module.scss';
 import api from '../../api/api';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import errorIcon from '@mui/icons-material/ReportProblemOutlined';
+import { ILoginContract } from '../../api/contracts';
+import { AxiosError } from 'axios';
 
-interface IFormInput {
-  email: string;
-  password: string;
-}
+interface IFormInput extends ILoginContract {}
 
 export const Login: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [error, setError] = useState([]);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>({ mode: 'onBlur' });
 
-  const { register, handleSubmit } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = data => console.log(data)
+  const onSubmit: SubmitHandler<IFormInput> = async data => {
+    try {
+      const response = await api.login(data);
+      console.log(response);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message)
+      }
+    }
+  };
 
-  function changeEmail(event: React.ChangeEvent<HTMLInputElement>) {
-    setEmail(event.target.value);
-  }
-  function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
-    setPassword(event.target.value);
-  }
-
+  const hasErrors =
+    (errors.hasOwnProperty('email') || errors.hasOwnProperty('password')) ===
+    true;
   return (
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -30,24 +38,48 @@ export const Login: React.FC = () => {
           Auth form
         </Typography>
         <Input
-          {...register('email', {required: true, maxLength: 20, minLength: {
-            value: 6,
-            message: 'Min length 6'
-          }, })}
+          {...register('email', {
+            required: 'Поле обязательно для заполнения',
+            maxLength: 20,
+            minLength: {
+              value: 6,
+              message: 'Минимум 6 символов',
+            },
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: 'Неверный формат email',
+            },
+          })}
           autoFocus={true}
           placeholder='email'
-          value={email}
           margin={'dense'}
-          onChange={changeEmail}
         />
+        {errors.email?.message && (
+          <div className={styles.error}>
+            <Icon component={errorIcon} color={'error'} />
+            <p>{errors.email.message}</p>
+          </div>
+        )}
+        <div className={styles.error}></div>
         <Input
-          {...register('password', {required: true, maxLength: 15})}
+          {...register('password', {
+            required: 'Поле обязательно для заполнения',
+            maxLength: 15,
+            minLength: {
+              value: 3,
+              message: 'Минимум 3 символа',
+            },
+          })}
           placeholder='password'
-          value={password}
-          onChange={changePassword}
           type='password'
         />
-        <Button variant='contained' type='submit'>
+        {errors.password?.message && (
+          <div className={styles.error}>
+            <Icon component={errorIcon} color={'error'} />
+            <p>{errors.password.message}</p>
+          </div>
+        )}
+        <Button variant='contained' type='submit' disabled={hasErrors}>
           login
         </Button>
       </form>

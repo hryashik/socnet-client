@@ -4,6 +4,7 @@ import { Login } from './pages/auth/login-page';
 import { MainPage } from './pages/main/main-page';
 import { UseAppDispatch } from './store/hooks';
 import { RootState } from './store/store';
+import './App.scss'
 
 export const App: React.FC = () => {
   const dispatch = UseAppDispatch();

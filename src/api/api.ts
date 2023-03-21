@@ -1,5 +1,9 @@
-import axios, { AxiosError } from 'axios';
-import { ILoginContract } from './contracts';
+import axios, { AxiosError, AxiosResponse } from 'axios';
+import { ILoginContract, ILoginResponse } from './contracts';
+
+export interface IError {
+  message: string;
+}
 
 class Api {
   private readonly baseUrl: string;
@@ -9,12 +13,15 @@ class Api {
 
   public async login(dto: ILoginContract) {
     try {
-      console.log(dto)
-      const response = await axios.post(`${this.baseUrl}/auth/login`, dto);
-      console.log(response);
+      const { data, status } = await axios.post<ILoginResponse>(
+        `${this.baseUrl}/auth/login`,
+        dto
+      );
+      return data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        console.log(error.response?.data)
+        console.log({error: error.response?.data.message})
+        throw new Error('Incorrect credentials');
       }
     }
   }
