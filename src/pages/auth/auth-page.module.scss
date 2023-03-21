@@ -1,18 +1,24 @@
+@import "../../variables.scss";
+
 .wrapper {
   width: auto;
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  .logo {
+    width: 200px;
+    height: 200px;
+  }
 }
 
 .form {
-  padding: 25px;
   width: 450px;
+  padding: 25px;
+  min-width: 350px;
   display: flex;
   flex-direction: column;
-  max-width: 350px;
-  margin-top: 100px;
+  margin-top: 25px;
   border-radius: 9px;
   box-shadow: 0px 4px 10px grey;
   button {
@@ -25,16 +31,24 @@
   h3 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 23px;
+    font-weight: 400;
   }
 }
 .error {
   margin-top: 10px;
   display: flex;
+  justify-content: left;
   align-items: center;
   color: rgb(190, 2, 2);
   font-size: 15px;
   font-family: 'Roboto', sans-serif;
   svg {
     margin-right: 10px;
+  }
+}
+.linkToRegistration {
+  a {
+    color: $main-color
   }
 }

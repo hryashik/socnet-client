@@ -8,7 +8,7 @@ import { ERROR_NAMES, IFormInput } from './types';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/fox.png'
 
-export const LoginPage: React.FC = () => {
+export const RegistrationPage: React.FC = () => {
   const [responseError, setResponseError] = useState<Error | null>();
 
   const {
@@ -41,8 +41,8 @@ export const LoginPage: React.FC = () => {
     <div className={styles.wrapper}>
       <img className={styles.logo} src={logo} alt="" />
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <Typography fontSize={25} variant='h3'>
-          Auth form
+        <Typography fontSize={25} variant='h3' fontFamily={"Roboto"}>
+          Registration form
         </Typography>
         {/* <EMAIL INPUT> */}
         <Input
@@ -97,7 +97,7 @@ export const LoginPage: React.FC = () => {
         </Button>
       </form>
       <p className={styles.linkToRegistration}>
-        <NavLink to={'/auth/registration'}>У вас нет аккаунта?</NavLink>
+        <NavLink to={'/auth/login'}>У вас уже есть аккаунт?</NavLink>
       </p>
       {responseError && (
         <div className={styles.error}>

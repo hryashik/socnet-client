@@ -1,10 +1,9 @@
-import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
-import { Login } from './pages/auth/login-page';
-import { MainPage } from './pages/main/main-page';
+import { LoginPage } from './pages/auth/login-page';
+import { ProfilePage } from './pages/profile/profile-page';
 import { UseAppDispatch } from './store/hooks';
-import { RootState } from './store/store';
 import './App.scss'
+import { RegistrationPage } from './pages/auth/registration-page';
 
 export const App: React.FC = () => {
   const dispatch = UseAppDispatch();
@@ -12,8 +11,10 @@ export const App: React.FC = () => {
   return (
     <>
       <Routes>
-        <Route path='/' element={<MainPage />} />
-        <Route path='/auth' element={<Login />} />
+        <Route path='/' element={<ProfilePage />} />
+        <Route path='/auth/login' element={<LoginPage />} />
+        <Route path='/auth/registration' element={<RegistrationPage />} />
+        <Route path='*' element={<><h1>404</h1></>} />
       </Routes>
     </>
   );
