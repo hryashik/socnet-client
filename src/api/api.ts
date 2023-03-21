@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import { ILoginContract, ILoginResponse } from './contracts';
+import { ILoginRequest, ILoginResponse } from './contracts';
 
 export interface IError {
   message: string;
@@ -11,7 +11,7 @@ class Api {
     this.baseUrl = url;
   }
 
-  public async login(dto: ILoginContract) {
+  public async login(dto: ILoginRequest): Promise<ILoginResponse | string> {
     try {
       const { data, status } = await axios.post<ILoginResponse>(
         `${this.baseUrl}/auth/login`,
@@ -22,6 +22,9 @@ class Api {
       if (axios.isAxiosError(error)) {
         console.log({error: error.response?.data.message})
         throw new Error('Incorrect credentials');
+      } else {
+        console.log({error: 'Unexpected Error'})
+        throw new Error('unexpected error')
       }
     }
   }

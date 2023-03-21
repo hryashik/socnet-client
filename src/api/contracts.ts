@@ -1,4 +1,4 @@
-export interface ILoginContract {
+export interface ILoginRequest {
   email: string
   password: string
 }

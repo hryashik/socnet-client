@@ -1,18 +1,17 @@
 import { Button, Icon, Input, Typography } from '@mui/material';
-import { KeyboardEvent, useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './login-page.module.scss';
 import api from '../../api/api';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import errorIcon from '@mui/icons-material/ReportProblemOutlined';
-import { ILoginContract } from '../../api/contracts';
-import { AxiosError } from 'axios';
-
-interface IFormInput extends ILoginContract {}
+import { ERROR_NAMES, IFormInput } from './types';
 
 export const Login: React.FC = () => {
-  const [error, setError] = useState([]);
+  const [responseError, setResponseError] = useState<Error | null>();
+
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>({ mode: 'onBlur' });
@@ -21,16 +20,21 @@ export const Login: React.FC = () => {
     try {
       const response = await api.login(data);
       console.log(response);
+      setResponseError(null);
+      reset();
     } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message)
+      // check instance error for handling
+      if (error instanceof Error && error.message === 'Incorrect credentials') {
+        // update error state
+        setResponseError(error);
       }
     }
   };
-
+  //checking react-hook-form errors for button
   const hasErrors =
     (errors.hasOwnProperty('email') || errors.hasOwnProperty('password')) ===
     true;
+
   return (
     <div className={styles.wrapper}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -39,20 +43,20 @@ export const Login: React.FC = () => {
         </Typography>
         <Input
           {...register('email', {
-            required: 'Поле обязательно для заполнения',
+            required: ERROR_NAMES.REQUIRED,
             maxLength: 20,
             minLength: {
               value: 6,
-              message: 'Минимум 6 символов',
+              message: ERROR_NAMES.MIN_LENGTH_EMAIL,
             },
             pattern: {
               value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'Неверный формат email',
+              message: ERROR_NAMES.INCORRECT_FORMAT_EMAIL,
             },
           })}
+          autoComplete={"off"}
           autoFocus={true}
           placeholder='email'
-          margin={'dense'}
         />
         {errors.email?.message && (
           <div className={styles.error}>
@@ -63,11 +67,11 @@ export const Login: React.FC = () => {
         <div className={styles.error}></div>
         <Input
           {...register('password', {
-            required: 'Поле обязательно для заполнения',
+            required: ERROR_NAMES.REQUIRED,
             maxLength: 15,
             minLength: {
               value: 3,
-              message: 'Минимум 3 символа',
+              message: ERROR_NAMES.MIN_LENGTH_PASSWORD,
             },
           })}
           placeholder='password'
@@ -83,6 +87,12 @@ export const Login: React.FC = () => {
           login
         </Button>
       </form>
+      {responseError && (
+        <div className={styles.error}>
+          <Icon component={errorIcon} color={'error'} />
+          <p>{ERROR_NAMES.INCORRECT_CREDENTIALS}</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -2,6 +2,8 @@
   width: auto;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .form {
@@ -32,7 +34,7 @@
   color: rgb(190, 2, 2);
   font-size: 15px;
   font-family: 'Roboto', sans-serif;
-  p {
-    margin: 2px 0 0 5px;
+  svg {
+    margin-right: 10px;
   }
 }
