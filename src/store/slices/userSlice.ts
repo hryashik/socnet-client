@@ -1,26 +1,28 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IInitUserPayload } from './types';
+import api from '../../api/api';
+import { ILoginRequest } from '../../api/contracts';
 
-/* export const LoginUserThunk = createAsyncThunk(
+/* export const loginThunk = createAsyncThunk(
   'user/defineUser',
-  async ({ email, password }: { email: string; password: string }) => {
-    const response = await api.login(email, password)
-    return response
-  },
-) */
+  async (dto: ILoginRequest) => {
+    const response = await api.login(dto);
+    return response;
+  }
+); */
 
 interface IUserState {
   id: number | null;
   email: string | null;
   avatar: string | null;
-  init: boolean
+  init: boolean;
 }
 
 const initialState: IUserState = {
   id: null,
   email: null,
   avatar: null,
-  init: false
+  init: false,
 };
 
 const userSlice = createSlice({
@@ -33,7 +35,12 @@ const userSlice = createSlice({
       state.avatar = action.payload.avatar;
     },
   },
+  /* extraReducers: (builder) => {
+    builder.addCase(loginThunk.fulfilled, (state, action) => {
+      
+    })
+  } */
 });
 
 export const { initUser } = userSlice.actions;
-export default userSlice.reducer
+export default userSlice.reducer;

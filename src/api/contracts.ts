@@ -5,3 +5,7 @@ export interface ILoginRequest {
 export interface ILoginResponse {
   access_token: string
 }
+export interface ISignupRequest {
+  email: string
+  password: string
+}

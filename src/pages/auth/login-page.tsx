@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import errorIcon from '@mui/icons-material/ReportProblemOutlined';
 import { ERROR_NAMES, IFormInput } from './types';
 import { NavLink } from 'react-router-dom';
-import logo from '../../assets/fox.png'
+import logo from '../../assets/fox.png';
 
 export const LoginPage: React.FC = () => {
   const [responseError, setResponseError] = useState<Error | null>();
@@ -24,6 +24,7 @@ export const LoginPage: React.FC = () => {
       console.log(response);
       setResponseError(null);
       reset();
+      localStorage.setItem('token', response.access_token);
     } catch (error) {
       // check instance error for handling
       if (error instanceof Error && error.message === 'Incorrect credentials') {
@@ -39,7 +40,7 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <img className={styles.logo} src={logo} alt="" />
+      <img className={styles.logo} src={logo} alt='' />
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <Typography fontSize={25} variant='h3'>
           Auth form

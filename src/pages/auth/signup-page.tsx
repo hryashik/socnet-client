@@ -8,7 +8,7 @@ import { ERROR_NAMES, IFormInput } from './types';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/fox.png'
 
-export const RegistrationPage: React.FC = () => {
+export const SignupPage: React.FC = () => {
   const [responseError, setResponseError] = useState<Error | null>();
 
   const {
@@ -20,10 +20,11 @@ export const RegistrationPage: React.FC = () => {
 
   const onSubmit: SubmitHandler<IFormInput> = async data => {
     try {
-      const response = await api.login(data);
+      const response = await api.signup(data);
       console.log(response);
       setResponseError(null);
       reset();
+      localStorage.setItem('token', response.access_token)
     } catch (error) {
       // check instance error for handling
       if (error instanceof Error && error.message === 'Incorrect credentials') {
