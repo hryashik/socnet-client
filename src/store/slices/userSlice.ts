@@ -1,5 +1,13 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IInitUserPayload } from './types';
+
+/* export const LoginUserThunk = createAsyncThunk(
+  'user/defineUser',
+  async ({ email, password }: { email: string; password: string }) => {
+    const response = await api.login(email, password)
+    return response
+  },
+) */
 
 interface IUserState {
   id: number | null;
