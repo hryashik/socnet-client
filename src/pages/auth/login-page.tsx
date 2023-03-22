@@ -11,6 +11,7 @@ import { UseAppDispatch } from '../../store/hooks';
 import { getUserThunk } from '../../store/slices/userSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { ErrorField } from '../../components/ErrorField/ErrorField';
 
 export const LoginPage: React.FC = () => {
   const [responseError, setResponseError] = useState<Error | null>();
@@ -81,10 +82,10 @@ export const LoginPage: React.FC = () => {
         />
         {/* </EMAIL INPUT> */}
         {errors.email?.message && (
-          <div className={styles.error}>
-            <Icon component={errorIcon} color={'error'} />
-            <p>{errors.email.message}</p>
-          </div>
+          <ErrorField
+            className={styles.error}
+            errorText={errors.email.message}
+          />
         )}
         <div className={styles.error}></div>
         {/* <PASWORD> */}
@@ -103,10 +104,10 @@ export const LoginPage: React.FC = () => {
         />
         {/* </PASWORD> */}
         {errors.password?.message && (
-          <div className={styles.error}>
-            <Icon component={errorIcon} color={'error'} />
-            <p>{errors.password.message}</p>
-          </div>
+          <ErrorField
+            className={styles.error}
+            errorText={errors.password?.message}
+          />
         )}
         <Button variant='contained' type='submit' disabled={hasErrors}>
           login
@@ -116,10 +117,10 @@ export const LoginPage: React.FC = () => {
         <NavLink to={'/auth/registration'}>У вас нет аккаунта?</NavLink>
       </p>
       {responseError && (
-        <div className={styles.error}>
-          <Icon component={errorIcon} color={'error'} />
-          <p>{ERROR_NAMES.INCORRECT_CREDENTIALS}</p>
-        </div>
+        <ErrorField
+          className={styles.error}
+          errorText={ERROR_NAMES.INCORRECT_CREDENTIALS}
+        />
       )}
     </div>
   );
