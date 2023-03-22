@@ -1,5 +1,10 @@
 import axios, { AxiosError, AxiosResponse, isAxiosError } from 'axios';
-import { ILoginRequest, ILoginResponse, ISignupRequest } from './contracts';
+import {
+  IGetUserResponse,
+  ILoginRequest,
+  ILoginResponse,
+  ISignupRequest,
+} from './contracts';
 
 export interface IError {
   message: string;
@@ -30,15 +35,36 @@ class Api {
   }
   public async signup(dto: ISignupRequest): Promise<ILoginResponse> {
     try {
-      const { data } = await axios.post<ILoginResponse>(`${this.baseUrl}/auth/signup`, dto);
-      return data
+      const { data } = await axios.post<ILoginResponse>(
+        `${this.baseUrl}/auth/signup`,
+        dto
+      );
+      return data;
     } catch (error) {
       if (isAxiosError(error)) {
-        console.log(error.message)
-        throw new Error(error.message)
+        console.log(error.message);
+        throw new Error(error.message);
       } else {
-        console.log(error)
-        throw new Error('unexpected error')
+        console.log(error);
+        throw new Error('unexpected error');
+      }
+    }
+  }
+  public async getUser(): Promise<IGetUserResponse> {
+    try {
+      const { data } = await axios.get(`${this.baseUrl}/users/me`, {
+        headers: {
+          Authorization: `Bearer ` + localStorage.getItem('token'),
+        },
+      });
+      return data;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.log(error.message);
+        throw new Error(error.message);
+      } else {
+        console.log(error);
+        throw new Error('unexpected error');
       }
     }
   }

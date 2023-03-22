@@ -1,11 +1,17 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import api from '../../api/api';
+
+export const checkAuthThunk= createAsyncThunk('app/checkAuth', async () => {
+  const response = await api.getUser();
+  return response;
+});
 
 interface IAppState {
-  isReady: boolean;
+  appIsReady: boolean;
 }
 
 const initialState: IAppState = {
-  isReady: false,
+  appIsReady: false,
 };
 
 export const appSlice = createSlice({
@@ -13,7 +19,7 @@ export const appSlice = createSlice({
   initialState,
   reducers: {
     toggleReady(state, action: PayloadAction<boolean>) {
-      state.isReady = action.payload;
+      state.appIsReady = action.payload;
     },
   },
 });

@@ -1,15 +1,28 @@
 import { Button, Icon, Input, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './auth-page.module.scss';
 import api from '../../api/api';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import errorIcon from '@mui/icons-material/ReportProblemOutlined';
 import { ERROR_NAMES, IFormInput } from './types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/fox.png';
+import { UseAppDispatch } from '../../store/hooks';
+import { getUserThunk } from '../../store/slices/userSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 export const LoginPage: React.FC = () => {
   const [responseError, setResponseError] = useState<Error | null>();
+  const dispatch = UseAppDispatch();
+  const navigate = useNavigate();
+  const { isAuth } = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/');
+    }
+  }, [isAuth]);
 
   const {
     register,
@@ -18,13 +31,13 @@ export const LoginPage: React.FC = () => {
     formState: { errors },
   } = useForm<IFormInput>({ mode: 'onBlur' });
 
-  const onSubmit: SubmitHandler<IFormInput> = async data => {
+  async function login(data: IFormInput) {
     try {
       const response = await api.login(data);
-      console.log(response);
       setResponseError(null);
       reset();
       localStorage.setItem('token', response.access_token);
+      dispatch(getUserThunk());
     } catch (error) {
       // check instance error for handling
       if (error instanceof Error && error.message === 'Incorrect credentials') {
@@ -32,7 +45,9 @@ export const LoginPage: React.FC = () => {
         setResponseError(error);
       }
     }
-  };
+  }
+  const onSubmit: SubmitHandler<IFormInput> = async data => login(data);
+
   //checking react-hook-form errors for button
   const hasErrors =
     (errors.hasOwnProperty('email') || errors.hasOwnProperty('password')) ===

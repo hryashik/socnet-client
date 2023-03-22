@@ -1,46 +1,38 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IInitUserPayload } from './types';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../api/api';
-import { ILoginRequest } from '../../api/contracts';
+import { IGetUserResponse } from '../../api/contracts';
 
-/* export const loginThunk = createAsyncThunk(
-  'user/defineUser',
-  async (dto: ILoginRequest) => {
-    const response = await api.login(dto);
-    return response;
-  }
-); */
+export const getUserThunk = createAsyncThunk('user/defineUser', async () => {
+  const response = await api.getUser();
+  return response;
+});
 
 interface IUserState {
-  id: number | null;
-  email: string | null;
-  avatar: string | null;
-  init: boolean;
+  info: IGetUserResponse | null;
+  isAuth: boolean;
+  isLoading: boolean
 }
 
 const initialState: IUserState = {
-  id: null,
-  email: null,
-  avatar: null,
-  init: false,
+  info: null,
+  isAuth: false,
+  isLoading: false
 };
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    initUser: (state, action: PayloadAction<IInitUserPayload>) => {
-      state.id = action.payload.id;
-      state.email = action.payload.email;
-      state.avatar = action.payload.avatar;
-    },
-  },
-  /* extraReducers: (builder) => {
-    builder.addCase(loginThunk.fulfilled, (state, action) => {
-      
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(getUserThunk.fulfilled, (state, action) => {
+      state.info = action.payload;
+      state.isAuth = true;
+      state.isLoading = false
+    });
+    builder.addCase(getUserThunk.pending, (state) => {
+      state.isLoading = true
     })
-  } */
+  },
 });
 
-export const { initUser } = userSlice.actions;
 export default userSlice.reducer;
