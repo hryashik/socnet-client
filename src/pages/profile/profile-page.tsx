@@ -1,21 +1,32 @@
 import { useEffect } from 'react';
-import { Root } from 'react-dom/client';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, redirect, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
+import Navbar from '../../components/Navbar/Navbar';
 import { UseAppDispatch } from '../../store/hooks';
-import { getUserThunk } from '../../store/slices/userSlice';
 import { RootState } from '../../store/store';
+import styles from './profile-page.module.scss';
 
 export const ProfilePage: React.FC = () => {
-  const { isAuth, isLoading } = useSelector((state: RootState) => state.user);
+  const { isAuth, isLoading, info } = useSelector(
+    (state: RootState) => state.user
+  );
   const navigate = useNavigate();
   const dispatch = UseAppDispatch();
+  const params = useParams();
+  const isMyPage = params.id === info?.displayName;
 
+  console.log('its my page?', isMyPage);
   useEffect(() => {
     if (!isAuth) {
-      navigate('/auth/login')
+      navigate('/auth/login');
     }
-  }, [])
+  }, []);
 
-  return <h1>Main page</h1>;
+  return (
+    <div>
+      <h1>
+        PROFILE PAGE
+      </h1>
+    </div>
+  );
 };

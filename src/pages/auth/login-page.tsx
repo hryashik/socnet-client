@@ -17,11 +17,11 @@ export const LoginPage: React.FC = () => {
   const [responseError, setResponseError] = useState<Error | null>();
   const dispatch = UseAppDispatch();
   const navigate = useNavigate();
-  const { isAuth } = useSelector((state: RootState) => state.user);
+  const { isAuth, info } = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     if (isAuth) {
-      navigate('/');
+      navigate(`/${info?.displayName}`);
     }
   }, [isAuth]);
 
@@ -65,7 +65,10 @@ export const LoginPage: React.FC = () => {
         <Input
           {...register('email', {
             required: ERROR_NAMES.REQUIRED,
-            maxLength: 20,
+            maxLength: {
+              value: 25,
+              message: ERROR_NAMES.MAX_LENGTH_EMAIL,
+            },
             minLength: {
               value: 6,
               message: ERROR_NAMES.MIN_LENGTH_EMAIL,
@@ -92,7 +95,10 @@ export const LoginPage: React.FC = () => {
         <Input
           {...register('password', {
             required: ERROR_NAMES.REQUIRED,
-            maxLength: 15,
+            maxLength: {
+              value: 15,
+              message: ERROR_NAMES.MAX_LENGTH_PASSWORD,
+            },
             minLength: {
               value: 6,
               message: ERROR_NAMES.MIN_LENGTH_PASSWORD,
