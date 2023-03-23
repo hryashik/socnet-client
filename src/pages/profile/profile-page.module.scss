@@ -1,21 +1,19 @@
 @import "../../variables.scss";
 
 .header {
-  height: 300px;
-  border-radius: $border-radius;
-  background-color: white;
   margin-bottom: 20px;
 }
 
 .body {
   display: grid;
   grid-template-columns: 2.5fr 1fr;
-  gap: 10px;
-  height: 300px;
+  gap: 20px;
+  height: 100%;
   border-radius: $border-radius;
-  div {
-    height: 100px;
-    background-color: white;
-
+  .first_column {
+    
+  }
+  &__content {
+    margin-bottom: 20px;
   }
 }

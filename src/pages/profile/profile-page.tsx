@@ -1,8 +1,7 @@
-import { Button } from '@mui/material';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import Navbar from '../../components/Navbar/Navbar';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ProfileBodyContent } from '../../components/Profile/Body/BodyContent/ProfileBodyContent';
 import { ProfileHeader } from '../../components/Profile/Header/Profile-header';
 import { UseAppDispatch } from '../../store/hooks';
 import { RootState } from '../../store/store';
@@ -31,8 +30,12 @@ export const ProfilePage: React.FC = () => {
       </div>
 
       <div className={styles.body}>
-        <div></div>
-        <div></div>
+        <div className={styles.first_column}>
+          <div className={styles.body__content}>
+            <ProfileBodyContent />
+          </div>
+        </div>
+        <div className={styles.second_column}></div>
       </div>
     </>
   );
