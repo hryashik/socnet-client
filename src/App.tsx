@@ -35,7 +35,10 @@ export const App: React.FC = () => {
         <Navbar />
         <div className={styles.main}>
           <div className={styles.firstColumn} style={check}>
-            <h1>asda</h1>
+            <p>asdasd</p>
+            <p>asdasd</p>
+            <p>asdasd</p>
+            <p>asdasd</p>
           </div>
           <div className={styles.secondColumn}>
             <Routes>

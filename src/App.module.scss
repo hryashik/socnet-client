@@ -10,17 +10,21 @@ body {
 }
 .main {
   margin-top: 20px;
-  display: grid;
+  display: flex;
   grid-template-columns: 1fr 6fr;
   grid-template-rows: 1fr;
+  justify-content: center;
   .firstColumn {
-    width: 200px;
+    width: 125px;
     padding: 10px 10px;
+    text-align: left;
+    display: flex;
   }
   .secondColumn {
-    margin-right: 200px;
+    width: 900px;
+    min-width: 600px;
     padding: 10px;
-    background-color: white;
     border-radius: 10px;
+    justify-self: center;
   }
 }
