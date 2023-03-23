@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from './store/store';
 import Navbar from './components/Navbar/Navbar';
 import styles from './App.module.scss';
+import { MyMenu } from './components/MyMenu/MyMenu';
 
 export const App: React.FC = () => {
   const dispatch = UseAppDispatch();
@@ -34,27 +35,26 @@ export const App: React.FC = () => {
       <>
         <Navbar />
         <div className={styles.main}>
-          <div className={styles.firstColumn} style={check}>
-            <p>asdasd</p>
-            <p>asdasd</p>
-            <p>asdasd</p>
-            <p>asdasd</p>
-          </div>
-          <div className={styles.secondColumn}>
-            <Routes>
-              <Route path='/' element={<LoginPage />} />
-              <Route path='/:id' element={<ProfilePage />} />
-              <Route path='/auth/login' element={<LoginPage />} />
-              <Route path='/auth/registration' element={<SignupPage />} />
-              <Route
-                path='*'
-                element={
-                  <>
-                    <h1>404</h1>
-                  </>
-                }
-              />
-            </Routes>
+          <div className={styles.container}>
+            <div className={styles.firstColumn} style={check}>
+              <MyMenu />
+            </div>
+            <div className={styles.secondColumn}>
+              <Routes>
+                <Route path='/' element={<LoginPage />} />
+                <Route path='/:id' element={<ProfilePage />} />
+                <Route path='/auth/login' element={<LoginPage />} />
+                <Route path='/auth/registration' element={<SignupPage />} />
+                <Route
+                  path='*'
+                  element={
+                    <>
+                      <h1>404</h1>
+                    </>
+                  }
+                />
+              </Routes>
+            </div>
           </div>
         </div>
       </>

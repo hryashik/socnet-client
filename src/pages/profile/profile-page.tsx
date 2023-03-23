@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ProfileContent } from '../../components/Profile/Body/Content/ProfileContent';
 import { ProfileFriends } from '../../components/Profile/Body/Friends/ProfileFriends';
+import { ProfileGifts } from '../../components/Profile/Body/Gifts/ProfileGifts';
 import { ProfileHeader } from '../../components/Profile/Header/ProfileHeader';
 import { UseAppDispatch } from '../../store/hooks';
 import { RootState } from '../../store/store';
@@ -37,6 +38,9 @@ export const ProfilePage: React.FC = () => {
           </div>
         </div>
         <div className={styles.second_column}>
+          <div>
+            <ProfileGifts />
+          </div>
           <div className={styles.friends}>
             <ProfileFriends />
           </div>
