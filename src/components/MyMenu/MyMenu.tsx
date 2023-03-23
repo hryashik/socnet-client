@@ -12,7 +12,7 @@ export const MyMenu = () => {
     <div className={styles.wrapper}>
       <div className={styles.tab}>
         <PermIdentityIcon color='primary'/>
-        <NavLink to={'#'}>Моя страница</NavLink>
+        <NavLink to={'/'}>Моя страница</NavLink>
       </div>
       <div className={styles.tab}>
         <NewspaperIcon color='primary'/>
@@ -20,7 +20,7 @@ export const MyMenu = () => {
       </div>
       <div className={styles.tab}>
         <MessengerIcon color='primary'/>
-        <NavLink to={'#'}>Мессенджер</NavLink>
+        <NavLink to={'/im'}>Мессенджер</NavLink>
       </div>
       <div className={styles.tab}>
         <FriendsIcon color='primary'/>

@@ -11,6 +11,7 @@ import { RootState } from './store/store';
 import Navbar from './components/Navbar/Navbar';
 import styles from './App.module.scss';
 import { MyMenu } from './components/MyMenu/MyMenu';
+import { MessengerPage } from './pages/messenger/MessengerPage';
 
 export const App: React.FC = () => {
   const dispatch = UseAppDispatch();
@@ -43,6 +44,7 @@ export const App: React.FC = () => {
               <Routes>
                 <Route path='/' element={<LoginPage />} />
                 <Route path='/:id' element={<ProfilePage />} />
+                <Route path='/im' element={<MessengerPage />} />
                 <Route path='/auth/login' element={<LoginPage />} />
                 <Route path='/auth/registration' element={<SignupPage />} />
                 <Route

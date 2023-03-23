@@ -5,9 +5,12 @@ import styles from './ProfileContent.module.scss'
 export const ProfileContent = () => {
   return (
     <>
-      <div className={styles.main}>
+       <div className={styles.main}>
         <MyTabsPanel />
-      </div>
+        <div>
+
+        </div>
+      </div> 
     </>
   )
 }
