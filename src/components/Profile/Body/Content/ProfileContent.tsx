@@ -1,8 +1,8 @@
 import React from 'react'
 import MyTabsPanel from '../../../UI/MyTabsPanel'
-import styles from './ProfileBodyContent.module.scss'
+import styles from './ProfileContent.module.scss'
 
-export const ProfileBodyContent = () => {
+export const ProfileContent = () => {
   return (
     <>
       <div className={styles.main}>

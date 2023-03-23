@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ProfileBodyContent } from '../../components/Profile/Body/BodyContent/ProfileBodyContent';
-import { ProfileHeader } from '../../components/Profile/Header/Profile-header';
+import { ProfileContent } from '../../components/Profile/Body/Content/ProfileContent';
+import { ProfileFriends } from '../../components/Profile/Body/Friends/ProfileFriends';
+import { ProfileHeader } from '../../components/Profile/Header/ProfileHeader';
 import { UseAppDispatch } from '../../store/hooks';
 import { RootState } from '../../store/store';
 import styles from './profile-page.module.scss';
@@ -32,10 +33,14 @@ export const ProfilePage: React.FC = () => {
       <div className={styles.body}>
         <div className={styles.first_column}>
           <div className={styles.body__content}>
-            <ProfileBodyContent />
+            <ProfileContent />
           </div>
         </div>
-        <div className={styles.second_column}></div>
+        <div className={styles.second_column}>
+          <div className={styles.friends}>
+            <ProfileFriends />
+          </div>
+        </div>
       </div>
     </>
   );

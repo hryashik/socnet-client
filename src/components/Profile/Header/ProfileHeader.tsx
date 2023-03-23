@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
-import styles from './Profile-header.module.scss';
+import styles from './ProfileHeader.module.scss';
 
 export const ProfileHeader: React.FC = () => {
   return (
