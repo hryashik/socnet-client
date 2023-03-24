@@ -2,21 +2,22 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import api from '../../api/api';
 import { IGetUserResponse } from '../../api/contracts';
 
-export const getUserThunk = createAsyncThunk('user/defineUser', async () => {
-  const response = await api.getUser();
-  return response;
-});
+export const getUserByIdThunk = createAsyncThunk(
+  'user/getUserById',
+  async (id: string) => {
+    const response = await api.getUserById(id);
+    return response;
+  }
+);
 
 interface IUserState {
   info: IGetUserResponse | null;
-  isAuth: boolean;
-  isLoading: boolean
+  isLoading: boolean;
 }
 
 const initialState: IUserState = {
   info: null,
-  isAuth: false,
-  isLoading: false
+  isLoading: false,
 };
 
 const userSlice = createSlice({
@@ -24,14 +25,17 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(getUserThunk.fulfilled, (state, action) => {
+    builder.addCase(getUserByIdThunk.fulfilled, (state, action) => {
       state.info = action.payload;
-      state.isAuth = true;
-      state.isLoading = false
+      state.isLoading = false;
     });
-    builder.addCase(getUserThunk.pending, (state) => {
-      state.isLoading = true
-    })
+    builder.addCase(getUserByIdThunk.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getUserByIdThunk.rejected, (state, action) => {
+      state.isLoading = false
+      throw new Error(action.error.message)
+    });
   },
 });
 

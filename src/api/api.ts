@@ -68,6 +68,27 @@ class Api {
       }
     }
   }
+  public async getUserById(id: string): Promise<IGetUserResponse> {
+    try {
+      const { data } = await axios.get<IGetUserResponse>(
+        `${this.baseUrl}/users/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      return data;
+    } catch (error) {
+      if (isAxiosError(error)) {
+        console.log(error.message)
+        throw new Error(error.message)
+      } else {
+        console.log('unexpected error')
+        throw new Error('unexpected error')
+      }
+    }
+  }
 }
 
 export default new Api(process.env.REACT_APP_BASE_URL as string);

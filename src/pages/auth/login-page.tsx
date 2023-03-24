@@ -1,27 +1,26 @@
-import { Button, Icon, Input, Typography } from '@mui/material';
+import { Button, Input, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import styles from './auth-page.module.scss';
 import api from '../../api/api';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import errorIcon from '@mui/icons-material/ReportProblemOutlined';
 import { ERROR_NAMES, IFormInput } from './types';
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/fox.png';
 import { UseAppDispatch } from '../../store/hooks';
-import { getUserThunk } from '../../store/slices/userSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { ErrorField } from '../../components/ErrorField/ErrorField';
+import { checkAuthThunk } from '../../store/slices/appSlice';
 
 export const LoginPage: React.FC = () => {
   const [responseError, setResponseError] = useState<Error | null>();
   const dispatch = UseAppDispatch();
   const navigate = useNavigate();
-  const { isAuth, info } = useSelector((state: RootState) => state.user);
+  const { isAuth, infoAboutMe } = useSelector((state: RootState) => state.app);
 
   useEffect(() => {
     if (isAuth) {
-      navigate(`/${info?.displayName}`);
+      navigate(`/${infoAboutMe?.id}`);
     }
   }, [isAuth]);
 
@@ -38,7 +37,7 @@ export const LoginPage: React.FC = () => {
       setResponseError(null);
       reset();
       localStorage.setItem('token', response.access_token);
-      dispatch(getUserThunk());
+      dispatch(checkAuthThunk());
     } catch (error) {
       // check instance error for handling
       if (error instanceof Error && error.message === 'Incorrect credentials') {

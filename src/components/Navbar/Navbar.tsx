@@ -15,6 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import logo from '../../assets/fox.png';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import { useParams } from 'react-router-dom';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -26,8 +27,10 @@ function Navbar() {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-  const { isAuth } = useSelector((state: RootState) => state.user);
-  const isHidden = isAuth ? {display: "block"} : {display: "none"}
+  const { isAuth } = useSelector((state: RootState) => state.app);
+
+  const isHidden =
+    isAuth ? { display: 'block' } : { display: 'none' };
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -44,7 +47,7 @@ function Navbar() {
   };
   return (
     <AppBar position='static' style={isHidden}>
-      <Container maxWidth='xl' style={{maxWidth: '1100px'}}>
+      <Container maxWidth='xl' style={{ maxWidth: '1100px' }}>
         <Toolbar disableGutters>
           {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
           <img src={logo} width={'50px'} height={'50px'} alt='' />
@@ -114,7 +117,7 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Open settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="?" src='/static/images/avatar/2.jpg' />
+                <Avatar alt='?' src='/static/images/avatar/2.jpg' />
               </IconButton>
             </Tooltip>
             <Menu

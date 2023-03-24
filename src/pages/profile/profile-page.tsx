@@ -1,51 +1,30 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ProfileContent } from '../../components/Profile/Body/Content/ProfileContent';
-import { ProfileFriends } from '../../components/Profile/Body/Friends/ProfileFriends';
-import { ProfileGifts } from '../../components/Profile/Body/Gifts/ProfileGifts';
-import { ProfileHeader } from '../../components/Profile/Header/ProfileHeader';
+import { MyPage } from '../../components/Profile/MyPage/MyPage';
+import { NotMyPage } from '../../components/Profile/NotMyPage/NotMyPage';
 import { UseAppDispatch } from '../../store/hooks';
+import { getUserByIdThunk } from '../../store/slices/userSlice';
 import { RootState } from '../../store/store';
-import styles from './profile-page.module.scss';
 
 export const ProfilePage: React.FC = () => {
-  const { isAuth, isLoading, info } = useSelector(
-    (state: RootState) => state.user
-  );
+  const params = useParams<{ id: string }>();
+  const { isAuth, infoAboutMe } = useSelector((state: RootState) => state.app);
+  // checking page
+  const isMyPage = params.id === infoAboutMe?.id.toString();
+
   const navigate = useNavigate();
   const dispatch = UseAppDispatch();
-  const params = useParams();
-  const isMyPage = params.id === info?.displayName;
-
   console.log('its my page?', isMyPage);
+
   useEffect(() => {
     if (!isAuth) {
       navigate('/auth/login');
     }
+    if (!isMyPage && params.id) {
+      dispatch(getUserByIdThunk(params.id));
+    }
   }, []);
-
-  return (
-    <>
-      <div className={styles.header}>
-        <ProfileHeader />
-      </div>
-
-      <div className={styles.body}>
-        <div className={styles.first_column}>
-          <div className={styles.body__content}>
-            <ProfileContent />
-          </div>
-        </div>
-        <div className={styles.second_column}>
-          <div>
-            <ProfileGifts />
-          </div>
-          <div className={styles.friends}>
-            <ProfileFriends />
-          </div>
-        </div>
-      </div>
-    </>
-  );
+  if (!isMyPage) <NotMyPage />;
+  return <MyPage />;
 };
