@@ -1,0 +1,11 @@
+.first_collumn {
+   border-right: 1px solid rgba(0, 0, 0, 0.193);
+ }
+ .header {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 40px;
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.193);
+}

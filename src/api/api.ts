@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosResponse, isAxiosError } from 'axios';
 import {
+  IDialog,
   IGetUserResponse,
   ILoginRequest,
   ILoginResponse,

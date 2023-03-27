@@ -7,49 +7,6 @@
   border: 1px solid rgba(128, 128, 128, 0.276)
 }
 
-.header {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  height: 40px;
-  padding: 10px 15px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.193);
-}
-
-.first_collumn {
-  border-right: 1px solid rgba(0, 0, 0, 0.193);
-  
-  .dialog_card {
-    padding: 10px 15px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.193);
-    &:last-child {
-      border-bottom: none;
-    }
-    img {
-      height: 55px;
-      width: 55px;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-  }
-  .info {
-    height: 100%;
-    margin-left: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    &__title {
-      margin-bottom: 7px;
-      font-size: 15px;
-    }
-    &__message {
-      font-size: 14px;
-    }
-  }
-}
 .second_collumn {
 
 }
