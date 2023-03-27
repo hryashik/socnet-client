@@ -1,21 +1,24 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { IGetUserResponse } from '../../api/contracts';
 import { MyPage } from '../../components/Profile/MyPage/MyPage';
 import { NotMyPage } from '../../components/Profile/NotMyPage/NotMyPage';
 import { UseAppDispatch } from '../../store/hooks';
-import { getUserByIdThunk } from '../../store/slices/userSlice';
+import { getUserByIdThunk } from '../../store/slices/profileSlice';
 import { RootState } from '../../store/store';
 
+interface IProps {
+  infoAboutMe: IGetUserResponse | null
+}
+
 export const ProfilePage: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = UseAppDispatch();
   const params = useParams<{ id: string }>();
   const { isAuth, infoAboutMe } = useSelector((state: RootState) => state.app);
   // checking page
   const isMyPage = params.id === infoAboutMe?.id.toString();
-
-  const navigate = useNavigate();
-  const dispatch = UseAppDispatch();
-  console.log('its my page?', isMyPage);
 
   useEffect(() => {
     if (!isAuth) {
@@ -25,6 +28,9 @@ export const ProfilePage: React.FC = () => {
       dispatch(getUserByIdThunk(params.id));
     }
   }, []);
-  if (!isMyPage) <NotMyPage />;
-  return <MyPage />;
+
+  if (!isMyPage || !infoAboutMe) {
+    return <NotMyPage />;
+  }
+  return <MyPage infoUser={infoAboutMe} />;
 };

@@ -10,33 +10,33 @@ export const getUserByIdThunk = createAsyncThunk(
   }
 );
 
-interface IUserState {
+interface IProfileState {
   info: IGetUserResponse | null;
-  isLoading: boolean;
+  isReady: boolean;
 }
 
-const initialState: IUserState = {
+const initialState: IProfileState = {
   info: null,
-  isLoading: false,
+  isReady: false,
 };
 
-const userSlice = createSlice({
+const profileSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
   extraReducers: builder => {
     builder.addCase(getUserByIdThunk.fulfilled, (state, action) => {
       state.info = action.payload;
-      state.isLoading = false;
+      state.isReady = true;
     });
     builder.addCase(getUserByIdThunk.pending, (state, action) => {
-      state.isLoading = true;
+      state.isReady = false;
     });
     builder.addCase(getUserByIdThunk.rejected, (state, action) => {
-      state.isLoading = false
+      state.isReady = false
       throw new Error(action.error.message)
     });
   },
 });
 
-export default userSlice.reducer;
+export default profileSlice.reducer;

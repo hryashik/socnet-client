@@ -9,15 +9,13 @@ export interface ISignupRequest {
   email: string
   password: string
 }
-/* export interface IGetUserRequest {
-  access_token: string
-} */
+
 export interface IGetUserResponse {
   email: string;
   id: number;
   avatar: string | null;
-  firstName: string | null;
-  secondName: string | null;
+  firstName: string
+  secondName: string
   displayName: string | null;
   noticeRoomId: string;
 }

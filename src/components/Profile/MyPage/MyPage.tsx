@@ -1,14 +1,20 @@
+import { IGetUserResponse } from '../../../api/contracts';
 import { ProfileContent } from '../Body/Content/ProfileContent';
 import { ProfileFriends } from '../Body/Friends/ProfileFriends';
 import { ProfileGifts } from '../Body/Gifts/ProfileGifts';
 import { ProfileHeader } from '../Header/ProfileHeader';
-import styles from './MyPage.module.scss'
+import styles from './MyPage.module.scss';
 
-export const MyPage = () => {
+interface IProps {
+  infoUser: IGetUserResponse;
+}
+
+export const MyPage: React.FC<IProps> = ({ infoUser }) => {
+  console.log('MY PAGE')
   return (
     <div>
       <div className={styles.header}>
-        <ProfileHeader />
+        <ProfileHeader firstName={infoUser.firstName} lastName={infoUser.secondName} avatar={infoUser.avatar}/>
       </div>
 
       <div className={styles.body}>

@@ -14,7 +14,7 @@ import { MessengerPage } from './pages/messenger/MessengerPage';
 
 export const App: React.FC = () => {
   const dispatch = UseAppDispatch();
-  const { appIsReady, isAuth } = useSelector((state: RootState) => state.app);
+  const { appIsReady, isAuth, infoAboutMe } = useSelector((state: RootState) => state.app);
 
   async function initialize() {
     dispatch(checkAuthThunk())
@@ -27,7 +27,7 @@ export const App: React.FC = () => {
   }, []);
 
   if (!appIsReady) {
-    return <h1>Preloader</h1>;
+    return <h1>App preloader</h1>;
   } else {
     return (
       <>
