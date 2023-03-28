@@ -20,7 +20,7 @@ export interface IGetUserResponse {
   noticeRoomId: string;
 }
 export interface IMessage {
-  author?: IGetUserResponse;
+  author: IGetUserResponse;
   id: number;
   authorId: number;
   text: string;

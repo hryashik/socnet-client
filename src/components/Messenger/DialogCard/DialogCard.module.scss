@@ -40,6 +40,8 @@
       }
 
       &__message {
+         overflow: hidden;
+         max-width: 200px;
          font-size: 14px;
       }
    }
