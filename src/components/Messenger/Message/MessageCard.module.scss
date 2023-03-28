@@ -6,19 +6,27 @@ li {
 }
 .message {
    display: flex;
-   justify-content: center;
+   justify-content: left;
+   padding: 0 20px;
    .avatar {
      margin-right: 13px;
      width: 40px;
      height: 40px;
      border-radius: 50%;
    }
-   /* &__info {
-     max-width: 300px;
-   } */
+   .info__header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      .time {
+         color: gray;
+         font-size: 12px;
+      }
+   }
    a {
      text-decoration: none;
      color: $main-color;
+     margin-right: 10px;
    }
    p {
      word-break: break-all;

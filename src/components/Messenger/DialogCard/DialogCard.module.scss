@@ -42,10 +42,11 @@
       &__message {
          overflow: hidden;
          max-width: 200px;
+         max-height: 14px;
          font-size: 14px;
       }
    }
 }
 .selected {
-   background-color: rgba(49, 49, 251, 0.156);
+   background-color: rgba(119, 161, 246, 0.377);
 }

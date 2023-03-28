@@ -1,19 +1,58 @@
 @import "../../../variables.scss";
 
-.main {
+/* .main {
    
-}
+} */
 .header {
-   display: flex;
-   justify-content: left;
-   align-items: center;
-   height: 40px;
-   padding: 10px 15px;
-   border-bottom: 1px solid rgba(0, 0, 0, 0.193);
- }
- .container {
-  width: 500px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 40px;
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.193);
+}
+
+.container {
+  width: 550px;
   margin: 0 auto;
- 
- }
- 
+  ul {
+    scroll-snap-type: proximity;
+    max-height: 700px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    &::-webkit-scrollbar {
+      background-color: rgba(0, 0, 0, 0);
+      width: 7px;
+    }
+    &::-webkit-scrollbar-thumb { 
+      border-radius: 5px; /*Закругление ползунка*/
+      background-color: rgba(0, 0, 0, 0.193); /*Цвет ползунка*/
+    }
+    
+  }
+}
+
+.footer {
+  padding: 20px;
+  max-width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.193);
+  display: flex;
+  align-items: center;
+   textarea {
+    border: 1px solid rgba(0, 0, 0, 0.193);
+    padding: 8px 8px;
+    font-size: 14px;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    resize: none;
+    border-radius: 8px;
+    &:focus-visible {
+      outline: none;
+    }
+  }
+  svg {
+    margin-left: 15px;
+  }
+}
