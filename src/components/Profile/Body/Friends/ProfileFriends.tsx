@@ -3,7 +3,7 @@ import styles from './ProfileFriends.module.scss';
 
 export const ProfileFriends = () => {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} style={{border: "1px solid rgba(128, 128, 128, 0.276)"}}>
       <div className={styles.block}>
         <p>Друзья онлайн 10</p>
         <div className={styles.content}>

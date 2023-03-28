@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .dialog_card {
    padding: 10px 15px;
    height: 80px;
@@ -5,16 +7,25 @@
    align-items: center;
    border-bottom: 1px solid rgba(0, 0, 0, 0.193);
 
+   &:hover {
+      cursor: pointer;
+      background-color: rgba(49, 49, 251, 0.156);
+   }
+
    &:last-child {
       border-bottom: none;
    }
 
-   img {
+   .avatar {
       height: 55px;
       width: 55px;
-      object-fit: cover;
-      border-radius: 50%;
+      img {
+         width: inherit;
+         object-fit: cover;
+         border-radius: 50%;
+      }
    }
+
 
    .info {
       height: 100%;
@@ -32,4 +43,7 @@
          font-size: 14px;
       }
    }
+}
+.selected {
+   background-color: rgba(49, 49, 251, 0.156);
 }

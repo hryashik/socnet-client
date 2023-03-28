@@ -6,15 +6,24 @@ import styles from './DialogsMenu.module.scss';
 
 interface IProps {
   dialogs: IDialog[];
+  selectedDialog: string;
+  selectDialog: (name: string) => void;
 }
 
-export const DialogsMenu: React.FC<IProps> = ({ dialogs }) => {
-  const { infoAboutMe } = useSelector((state: RootState) => state.app);
-
+export const DialogsMenu: React.FC<IProps> = ({
+  dialogs,
+  selectedDialog,
+  selectDialog,
+}) => {
   const mappedDialogs = dialogs.map(el => {
-   const userId = el.usersId.filter(id => id !== infoAboutMe?.id)[0]
-    const lastMessage = el.Messages.at(-1) as IMessage;
-    return <DialogCard id={el.id} userId={userId} lastMessage={lastMessage} key={el.id} />;
+    return (
+      <DialogCard
+        info={el}
+        key={el.id}
+        selectedDialog={selectedDialog}
+        selectDialog={selectDialog}
+      />
+    );
   });
 
   return (
